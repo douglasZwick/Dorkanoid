@@ -1,0 +1,146 @@
+class BallisticMotion : ZilchComponent
+{
+  sends BallisticMotionPersisted : BallisticEvent;
+  sends BallisticCollisionStarted : BallisticEvent;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  [Dependency]
+  var Collider : Collider;
+  
+  [Property]
+  var Speed : Real = 10;
+  [Property]
+  var Direction : Real2 = Real2.One;
+  
+  var Physics : PhysicsSpace;
+  var Velocity : Real2;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Physics = this.Space.PhysicsSpace;
+    
+    this.Direction = Math.Normalize(this.Direction);
+    this.Velocity = this.Speed * this.Direction;
+    
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    this.Move(event.Dt);
+  }
+  
+  
+  function Move(dt : Real)
+  {
+    if (this.Velocity == Real2.Zero)
+      return;
+    
+    var dPos = this.Velocity * dt;
+    
+    var filter = CastFilter();
+    filter.IgnoreDynamic = true;
+    filter.IgnoreKinematic = false;
+    filter.IgnoreStatic = false;
+    filter.IgnoreGhost = true;
+    
+    var otherCollider = null as Collider;
+    
+    var counter = 0;
+    var bounceIterations = (5 * this.Speed) as Integer;
+    
+    do
+    {
+      var worldStartingPosition = this.Transform.WorldTranslation;
+      
+      var be = BallisticEvent();
+      be.Mover = this;
+      be.InitialPosition = worldStartingPosition;
+      be.InitialVelocity = this.Velocity;
+      
+      var sweepVelocity = Real3(dPos, 0);
+      Console.WriteLine(sweepVelocity);
+      var t = 1.0;
+      var results = this.Physics.SweepCollider(this.Collider, sweepVelocity, dt, filter);
+      
+      if (results.IsNotEmpty)
+      {
+        var result = results.Current;
+        
+        be.Result = result;
+        otherCollider = result.OtherCollider;
+        
+        ++counter;
+        
+        var normal = result.WorldNormalTowardsSelf.XY;
+        var xIsPositive = normal.X >= 0;
+        var yIsPositive = normal.Y >= 0;
+        var xIsGreater = Math.Abs(normal.X) > Math.Abs(normal.Y);
+        
+        if (xIsPositive && xIsGreater)
+          normal = Real2.XAxis;
+        else if (yIsPositive && !xIsGreater)
+          normal = Real2.YAxis;
+        else if (!xIsPositive && xIsGreater)
+          normal = -Real2.XAxis;
+        else // (!yIsPositive && !xIsGreater)
+          normal = -Real2.YAxis;
+        
+        t = result.Time;
+        var leftoverT = 1 - t;
+        var leftoverDelta = leftoverT * dPos;
+        var reflectedLeftoverDelta = -Math.ReflectAcrossVector(leftoverDelta, normal);
+        
+        dPos = reflectedLeftoverDelta;
+        this.Velocity = -Math.ReflectAcrossVector(this.Velocity, normal);
+        
+        be.OtherObject = otherCollider.Owner;
+        this.Owner.DispatchEvent(Events.BallisticCollisionStarted, be);
+        be.OtherObject = this.Owner;
+        otherCollider.Owner.DispatchEvent(Events.BallisticCollisionStarted, be);
+      }
+      else
+      {
+        otherCollider = null;
+      }
+      
+      be.FinalVelocity = this.Velocity;
+      this.Transform.WorldTranslation = worldStartingPosition + sweepVelocity * t;
+      be.FinalPosition = this.Transform.WorldTranslation;
+      this.Owner.DispatchEvent(Events.BallisticMotionPersisted, be);
+    }
+    while (otherCollider != null && counter < bounceIterations)
+    
+    this.PAUSEIF(counter > 0);
+  }
+  
+  
+  function DebugPause()
+  {
+    this.Space.TimeSpace.TogglePause();
+    Console.WriteLine("******************************* PAUSE *******************************");
+  }
+  
+  
+  function PAUSEIF(condition : Boolean)
+  {
+    if (condition)
+      this.DebugPause();
+  }
+}
+
+
+class BallisticEvent : ZilchEvent
+{
+  var OtherObject : Cog;
+  var Result : SweepResult;
+  var Mover : BallisticMotion;
+  var InitialPosition : Real3;
+  var FinalPosition : Real3;
+  var InitialVelocity : Real2;
+  var FinalVelocity : Real2;
+}

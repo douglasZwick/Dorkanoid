@@ -1,0 +1,46 @@
+[Version:1]
+Cog 
+{
+	var Name = "P1Paddle"
+	Transform 
+	{
+		var Translation = Real3{-8.25, -6, 0}
+		var Scale = Real3{1, 1, 1}
+		var Rotation = Quaternion{0, 0, 0, 1}
+	}
+	Sprite 
+	{
+		var Visible = true
+		var ViewCulling = true
+		var VisibilityEvents = true
+		var OverrideBoundingBox = false
+		var LocalAabbCenter = Real3{0, 0, 0}
+		var LocalAabbHalfExtents = Real3{1, 1, 1}
+		var GroupSortValue = 0
+		var Material = "5d84f3bc4ee18dcd:EarlyAdditiveSprite"
+		var VertexColor = Real4{3, 2.76470613, 0.152941167, 1}
+		var GeometryMode = SpriteGeometryMode.ZPlane
+		var SpriteSource = "5d8484bae93de0b1:RoundRectangleOutline"
+		var FlipX = false
+		var FlipY = false
+		var AnimationActive = true
+		var AnimationSpeed = 1
+		var StartFrame = 0
+	}
+	PaddleMover 
+	{
+		var Speed = 10
+		var BoostSpeed = 30
+		var Bounds = Real2{-15.25, -1.25}
+	}
+	PaddleHumanInput 
+	{
+		var PlayerNumber = 1
+		var BoostButton = Buttons.RightShoulder
+	}
+	Area 
+	{
+		var Size = Real2{2, 0.5}
+		var Origin = Location.Center
+	}
+}

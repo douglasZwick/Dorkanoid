@@ -1,0 +1,9 @@
+[Version:1]
+TextContent 
+{
+	ZilchScriptBuilder 
+	{
+		var Name = "SweptController"
+		var ResourceId = 0x5d84b6e9e66ca91d
+	}
+}

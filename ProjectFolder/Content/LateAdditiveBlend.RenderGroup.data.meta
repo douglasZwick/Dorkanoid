@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LateAdditiveBlend"
+		var ResourceId = 0x5d84f6d20ce52502
+		var LoaderType = "RenderGroup"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"RenderGroup"
+		}
+	}
+}

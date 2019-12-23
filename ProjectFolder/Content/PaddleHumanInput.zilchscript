@@ -1,0 +1,30 @@
+class PaddleHumanInput : ZilchComponent
+{
+  [Dependency]
+  var Mover : PaddleMover;
+  
+  
+  [Property]  // P1 is 1, P2 is 2
+  var PlayerNumber : Integer = 1;
+  [Property]
+  var BoostButton : Buttons = Buttons.RightShoulder;
+  
+  var Gamepad : Gamepad;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    this.Gamepad = Zero.Gamepads.GetGamePad(this.PlayerNumber - 1);
+    
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    var stickInput = this.Gamepad.LeftStick.X;
+    var boosting = this.Gamepad.IsButtonHeld(this.BoostButton);
+    
+    this.Mover.Move(stickInput, boosting, event.Dt);
+  }
+}

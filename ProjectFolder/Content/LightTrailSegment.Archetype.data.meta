@@ -1,0 +1,11 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LightTrailSegment"
+		var ResourceId = 0x5e7b535493c97f0b
+		var LoaderType = "Cog"
+		var Version = 0
+	}
+}

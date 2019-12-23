@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LateAdditiveSprite"
+		var ResourceId = 0x5d84f26d7383618f
+		var LoaderType = "Material"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"Material"
+		}
+	}
+}

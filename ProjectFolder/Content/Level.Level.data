@@ -1,10 +1,9 @@
 [Version:1]
 Level 
 {
-	Cog 
+	Cog [ContextId:1]
 	{
 		var Name = "LevelSettings"
-		var LinkId = 1
 		GravityEffect 
 		{
 			var Active = true
@@ -40,11 +39,10 @@ Level
 			var FollowEditorCamera = false
 		}
 	}
-	Cog 
+	Cog [ContextId:2]
 	{
 		var Name = "Renderer"
-		var LinkId = 2
-		ForwardRenderer 
+		SpriteSortedForwardRenderer 
 		{
 			var EditorDebugDraw = true
 			var GameDebugDraw = true
@@ -52,10 +50,11 @@ Level
 			var RenderSpecular = true
 			var RenderSkybox = false
 			var Skybox = "5822dec85e380cf1:SimpleSkybox"
-			var ClearColor = Real4{0, 0, 0, 1}
+			var ClearColor = Real4{0.156862751, 0.156862751, 0.156862751, 1}
 			var DirectLighting = true
 			var IndirectLighting = true
 			var IndirectIntensity = 1
+			var UseColorCurve = true
 			var ToneMap = true
 			var DirectionalLight = CogPath
 			{
@@ -67,32 +66,39 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 4294967293
+				var Cog = 4294967293
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
 		}
+		Bloom 
+		{
+			var Active = true
+			var Intensity = 0.100000001
+			var Threshold = 1
+			var Bloom1 = true
+			var Bloom2 = true
+			var Bloom3 = true
+			var Bloom4 = true
+			var Bloom5 = true
+			var DebugBuffer = false
+		}
 	}
-	Cog 
+	Cog [ContextId:3]
 	{
 		var Name = "EditorCamera"
-		var LinkId = 3
 		Transform 
 		{
-			var Translation = Real3{0, 0, 10}
+			var Translation = Real3{-8.25, 0, 20}
 			var Scale = Real3{1, 1, 1}
-			var Rotation = Quaternion{0, 0, 0, 1}
+			var Rotation = Quaternion{0, -1.09278471e-08, 0, 1}
 		}
 		CameraViewport 
 		{
 			var RenderInEditor = true
 			var RenderInGame = false
-			var RenderToViewport = true
-			var ForwardViewportEvents = false
 			var RenderOrder = 0
-			var NormalizedSize = Real2{1, 1}
-			var NormalizedOffset = Real2{0, 0}
 			var CameraPath = CogPath
 			{
 				var Path = "."
@@ -103,7 +109,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 3
+				var Cog = 3
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -118,14 +124,18 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 2
+				var Cog = 2
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
-			var Resolution = Real2{1920, 1080}
+			var ResolutionOrAspect = Integer2{1920, 1080}
+			var RenderToViewport = true
+			var ForwardViewportEvents = false
 			var ViewportScaling = ViewportScaling.Fill
 			var MarginColor = Real4{0, 0, 0, 1}
+			var NormalizedSize = Real2{1, 1}
+			var NormalizedOffset = Real2{0, 0}
 		}
 		Camera 
 		{
@@ -133,7 +143,7 @@ Level
 			var FarPlane = 500
 			var PerspectiveMode = PerspectiveMode.Orthographic
 			var FieldOfView = 45
-			var Size = 19.9999905
+			var Size = 3.90160632
 		}
 		EditorCameraController 
 		{
@@ -142,14 +152,13 @@ Level
 			var LookDistance = 20
 			var VerticalAngle = 0
 			var HorizontalAngle = 0
-			var LookTarget = Real3{0, 0, 0}
+			var LookTarget = Real3{-8.25, 0, 0}
 			var MoveSensitivity = 1
 		}
 	}
-	Cog 
+	Cog [ContextId:4]
 	{
 		var Name = "GameCamera"
-		var LinkId = 4
 		Transform 
 		{
 			var Translation = Real3{0, 0, 10}
@@ -169,11 +178,7 @@ Level
 		{
 			var RenderInEditor = false
 			var RenderInGame = true
-			var RenderToViewport = true
-			var ForwardViewportEvents = false
 			var RenderOrder = 0
-			var NormalizedSize = Real2{1, 1}
-			var NormalizedOffset = Real2{0, 0}
 			var CameraPath = CogPath
 			{
 				var Path = "."
@@ -184,7 +189,7 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 4
+				var Cog = 4
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
@@ -199,14 +204,18 @@ Level
 				var UpdatePathOnCogChange = true
 				var UpdateCogOnInitialize = true
 				var ResolvedNullErrorOccurred = false
-				var ResolvedCog = 2
+				var Cog = 2
 				var PathPreference0 = CogPathPreference.CogRelative
 				var PathPreference1 = CogPathPreference.SpaceRelative
 				var PathPreference2 = CogPathPreference.Absolute
 			}
-			var Resolution = Real2{1920, 1080}
+			var ResolutionOrAspect = Integer2{1920, 1080}
+			var RenderToViewport = true
+			var ForwardViewportEvents = false
 			var ViewportScaling = ViewportScaling.Letterbox
 			var MarginColor = Real4{0, 0, 0, 1}
+			var NormalizedSize = Real2{1, 1}
+			var NormalizedOffset = Real2{0, 0}
 		}
 		Camera 
 		{
@@ -219,6 +228,418 @@ Level
 		SoundListener 
 		{
 			var Active = true
+			var AttenuationScale = 1
+		}
+	}
+	Cog [ContextId:5]
+	{
+		var Name = "P1Border"
+		EditorFlags 
+		{
+			var Locked = true
+			var Hidden = false
+		}
+		Transform 
+		{
+			var Translation = Real3{-8.25, 0, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f3bc4ee18dcd:EarlyAdditiveSprite"
+			var VertexColor = Real4{3, 2.76470613, 0.152941167, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5d8484bae93de0b1:RoundRectangleOutline"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		Area 
+		{
+			var Size = Real2{16.25, 16.25}
+			var Origin = Location.Center
+		}
+	}
+	Cog [ContextId:6]
+	{
+		var Name = "P1Background"
+		EditorFlags 
+		{
+			var Locked = true
+			var Hidden = false
+		}
+		Transform 
+		{
+			var Translation = Real3{-8.25, 0, -1}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{0, 0, 0, 0.5}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		Area 
+		{
+			var Size = Real2{16, 16}
+			var Origin = Location.Center
+		}
+	}
+	Cog [ContextId:7]
+	{
+		var Name = "P2Border"
+		EditorFlags 
+		{
+			var Locked = true
+			var Hidden = false
+		}
+		Transform 
+		{
+			var Translation = Real3{8.25, 0, 0}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f3bc4ee18dcd:EarlyAdditiveSprite"
+			var VertexColor = Real4{0.275000066, 2.45208383, 5.5, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5d8484bae93de0b1:RoundRectangleOutline"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		Area 
+		{
+			var Size = Real2{16.25, 16.25}
+			var Origin = Location.Center
+		}
+	}
+	Cog [ContextId:8]
+	{
+		var Name = "P2Background"
+		EditorFlags 
+		{
+			var Locked = true
+			var Hidden = false
+		}
+		Transform 
+		{
+			var Translation = Real3{8.25, 0, -1}
+			var Scale = Real3{1, 1, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{0, 0, 0, 0.5}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5586f579ca73ecc2:SquareBordered"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		Area 
+		{
+			var Size = Real2{16, 16}
+			var Origin = Location.Center
+		}
+	}
+	Cog [ContextId:9]
+	{
+		var Name = "Wall"
+		Transform 
+		{
+			var Translation = Real3{0, 0, -1}
+			var Scale = Real3{0.5, 17, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 0.25}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5275aa4d802dd6dc:Square"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 1}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+	}
+	Cog [ContextId:10]
+	{
+		var Name = "Wall"
+		Transform 
+		{
+			var Translation = Real3{-16.5, 0, -1}
+			var Scale = Real3{0.5, 17, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 0.25}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5275aa4d802dd6dc:Square"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 1}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+	}
+	Cog [ContextId:11]
+	{
+		var Name = "Wall"
+		Transform 
+		{
+			var Translation = Real3{16.5, 0, -1}
+			var Scale = Real3{0.5, 17, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 0.25}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5275aa4d802dd6dc:Square"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 1}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+	}
+	Cog [ContextId:12]
+	{
+		var Name = "Wall"
+		Transform 
+		{
+			var Translation = Real3{0, 8.25, -1}
+			var Scale = Real3{33.5, 0.5, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 0.25}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5275aa4d802dd6dc:Square"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 1}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+	}
+	Cog [ContextId:13]
+	{
+		var Name = "Wall"
+		Transform 
+		{
+			var Translation = Real3{0, -8.25, -1}
+			var Scale = Real3{33.5, 0.5, 1}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f25743275ba3:EarlyAlphaSprite"
+			var VertexColor = Real4{1, 1, 1, 0.25}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5275aa4d802dd6dc:Square"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		BoxCollider 
+		{
+			var Ghost = false
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 1}
+			var HalfSize = Real3{0.5, 0.5, 0.5}
+		}
+	}
+	Cog [ContextId:14]
+	{
+		var Name = "Ball"
+		Transform 
+		{
+			var Translation = Real3{-11, 0, 0}
+			var Scale = Real3{0.5, 0.5, 0.5}
+			var Rotation = Quaternion{0, 0, 0, 1}
+		}
+		Sprite 
+		{
+			var Visible = true
+			var ViewCulling = true
+			var VisibilityEvents = true
+			var OverrideBoundingBox = false
+			var LocalAabbCenter = Real3{0, 0, 0}
+			var LocalAabbHalfExtents = Real3{1, 1, 1}
+			var GroupSortValue = 0
+			var Material = "5d84f3bc4ee18dcd:EarlyAdditiveSprite"
+			var VertexColor = Real4{3, 3, 3, 1}
+			var GeometryMode = SpriteGeometryMode.ZPlane
+			var SpriteSource = "5274db4c2e7c11f9:Circle"
+			var FlipX = false
+			var FlipY = false
+			var AnimationActive = true
+			var AnimationSpeed = 1
+			var StartFrame = 0
+		}
+		CylinderCollider 
+		{
+			var Ghost = true
+			var SendsEvents = true
+			var Material = "4de020863e872da8:DefaultPhysicsMaterial"
+			var CollisionGroup = "4e740859314e5515:DefaultGroup"
+			var Offset = Real3{0, 0, 0}
+			var Radius = 0.5
+			var Height = 1
+			var Direction = AxisDirection.Z
+		}
+		RigidBody 
+		{
+			var Velocity = Real3{0, 0, 0}
+			var AngularVelocity = Real3{0, 0, 0}
+			var DynamicState = RigidBodyDynamicState.Kinematic
+			var AllowSleep = true
+			var Asleep = false
+			var RotationLocked = false
+			var Mode2D = Mode2DStates.InheritFromSpace
+		}
+		BallisticMotion 
+		{
+			var Speed = 200
+			var Direction = Real2{1, 4}
+		}
+		LightTrail 
+		{
+			var SegmentArchetype = "5e7b535493c97f0b:LightTrailSegment"
+			var Width = 0.5
+			var Lifespan = 0.75
+			var HueSpeed = 1
+			var Saturation = 1
+			var Value = 5
+			var Alpha = 1
 		}
 	}
 }

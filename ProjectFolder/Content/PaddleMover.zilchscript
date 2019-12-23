@@ -1,0 +1,28 @@
+class PaddleMover : ZilchComponent
+{
+  [Dependency]
+  var Transform : Transform;
+  
+  [Property]
+  var Speed : Real = 10.0;
+  [Property]
+  var BoostSpeed : Real = 30.0;
+  [Property]
+  var Bounds : Real2 = Real2(-10, 10);
+  
+  
+  function Move(input : Real, boosting : Boolean, dt : Real)
+  {
+    var pos = this.Transform.WorldTranslation;
+    
+    var speed = this.Speed;
+    
+    if (boosting)
+      speed = this.BoostSpeed;
+    
+    var dX = input * speed * dt;
+    
+    pos.X = Math.Clamp(pos.X + dX, this.Bounds.X, this.Bounds.Y);
+    this.Transform.WorldTranslation = pos;
+  }
+}

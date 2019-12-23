@@ -1,0 +1,100 @@
+class LightTrail : ZilchComponent
+{
+  [Static]
+  var SpeedThresholdSq : Real = 0.01;
+  
+  
+  [Dependency]
+  var Transform : Transform;
+  [Dependency]
+  var BallisticMotion : BallisticMotion;
+  
+  
+  [Property]
+  var SegmentArchetype : Archetype = Archetype.LightTrailSegment;
+  [Property]
+  var Width : Real = 0.5;
+  [Property]
+  var Lifespan : Real = 0.75;
+  [Property]
+  var HueSpeed : Real = 1;
+  [Property]
+  var Saturation : Real = 1;
+  [Property]
+  var Value : Real = 1;
+  [Property]
+  var Alpha : Real = 1.0 / 3.0;
+  
+  var CurrentHue : Real = 0;
+  var CurrentColor : Real4;
+  
+  
+  function Initialize(init : CogInitializer)
+  {
+    var h = this.CurrentHue;
+    var s = this.Saturation;
+    var v = this.Value;
+    var a = this.Alpha;
+    
+    this.CurrentColor = Color.FromHsva(h, s, v, a);
+    
+    Zero.Connect(this.Owner, Events.BallisticMotionPersisted, this.OnBallisticMotionPersisted);
+    Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+  }
+  
+  
+  function OnBallisticMotionPersisted(event : BallisticEvent)
+  {
+    var velocitySq = Math.LengthSq(event.FinalVelocity);
+    
+    if (velocitySq < LightTrail.SpeedThresholdSq)
+      return;
+    
+    this.CreateSegment(event.InitialPosition, event.FinalPosition);
+  }
+  
+  
+  function OnLogicUpdate(event : UpdateEvent)
+  {
+    var h = this.CurrentHue;
+    var s = this.Saturation;
+    var v = this.Value;
+    var a = this.Alpha;
+    
+    this.CurrentColor = Color.FromHsva(h, s, v, a);
+    var dHue = this.HueSpeed * event.Dt;
+    this.CurrentHue = Math.Frac(this.CurrentHue + dHue);
+  }
+  
+  
+  function CreateSegment(fromPos : Real3, toPos : Real3)
+  {
+    if (this.Space.MarkedForDestruction)
+      return;
+    
+    var segment = this.Space.Create(this.SegmentArchetype);
+    var difference = toPos - fromPos;
+    var angle = Math.Angle2D(difference);
+    
+    segment.Transform.WorldRotation = Math.AxisAngle(Real3.ZAxis, angle);
+    
+    var centerOffsetDistance = 0.5 * segment.Transform.LocalScale.X;
+    var centerOffset = Math.Normalize(difference) * centerOffsetDistance;
+    var center = toPos + centerOffset;
+    
+    segment.Transform.WorldTranslation = center;
+    
+    var distanceTraveled = Math.Length(difference);
+    var segmentLength = 2.0 * centerOffsetDistance + distanceTraveled;
+    var segmentSize = Real2(segmentLength, this.Width);
+    segment.Area.Size = segmentSize;
+    
+    segment.Sprite.VertexColor = this.CurrentColor;
+    
+    var targetColor = this.CurrentColor;
+    targetColor.W = 0;
+    var fadeSeq = Action.Sequence(segment.Actions);
+    Action.Property(fadeSeq, @segment.Sprite.VertexColor, targetColor, this.Lifespan, Ease.QuadOut);
+    Action.Call(fadeSeq, segment.Destroy);
+  }
+}

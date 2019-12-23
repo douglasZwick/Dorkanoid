@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "LateSorting"
+		var ResourceId = 0x5d84f2e4aa865751
+		var LoaderType = "RenderGroup"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"RenderGroup"
+		}
+	}
+}

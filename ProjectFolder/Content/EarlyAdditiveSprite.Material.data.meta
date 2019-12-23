@@ -1,0 +1,18 @@
+[Version:1]
+DataContent 
+{
+	DataBuilder 
+	{
+		var Name = "EarlyAdditiveSprite"
+		var ResourceId = 0x5d84f3bc4ee18dcd
+		var LoaderType = "Material"
+		var Version = 0
+	}
+	ContentTags 
+	{
+		var Tags = Array
+		{
+			"Material"
+		}
+	}
+}

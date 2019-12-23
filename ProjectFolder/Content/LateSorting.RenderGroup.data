@@ -1,0 +1,15 @@
+[Version:1]
+RenderGroup 
+{
+	var Materials = Array
+	{
+		"582c575af53d18c9:AlphaSprite"
+	}
+	var GraphicalSortMethod = GraphicalSortMethod.BackToFrontView
+	var ParentRenderGroup = ""
+	var ChildRenderGroups = Array
+	{
+		"5d84f6d20ce52502:LateAdditiveBlend"
+		"5d84f286d4bc82bb:LateAlphaBlend"
+	}
+}
